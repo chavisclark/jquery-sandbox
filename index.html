@@ -88,21 +88,31 @@
         </div>
       </div>
       <div id="bodyContainer">
-        <textarea id="htmlPanel" class="panel" placeholder="HTML goes here"></textarea>
-        <textarea id="cssPanel" class="panel hidden" ></textarea>
+        <textarea id="htmlPanel" class="panel" placeholder="HTML goes here"><p id="doc">Change me</p></textarea>
+        <textarea id="cssPanel" class="panel hidden" >p { color: green }</textarea>
         <textarea id="javascriptPanel" class="panel hidden" ></textarea>
         <iframe id="outputPanel" class="panel" src=""></iframe>
       </div>
       <script type="text/javascript" src="./jquery/jquery.min.js"></script>
       <script type="text/javascript" src="./scripts.js"></script>
        <script type="text/javascript">
-         $(".toggleButton").hover(function() {
-          $(this).addClass("highlightedButton")
-         }, function() {
-            $(this).removeClass("highlightedButton")
-         });
 
-         $(".toggleButton").click(function() {
+        function updateOutput() {
+          $("iframe").contents().find("html").html(
+            "<html><head><style type='text/css'>" + 
+            $("#cssPanel").val() + "</style></head><body>" + 
+            $("#htmlPanel").val() + "</body></html>"
+            );
+            document.getElementById("outputPanel").contentWindow.eval($("#javascriptPanel").val());
+        }
+
+        $(".toggleButton").hover(function() {
+          $(this).addClass("highlightedButton")
+        }, function() {
+          $(this).removeClass("highlightedButton")
+        });
+
+        $(".toggleButton").click(function() {
           $(this).toggleClass("active");
           $(this).removeClass("highlightedButton");
 
@@ -111,14 +121,17 @@
           $("#" + panelId).toggleClass("hidden");
 
           var numberOfActivePanels = 4 - $('.hidden').length;
-           $(".panel").width(($(window).width() / numberOfActivePanels ) - 10);
-         });
+          $(".panel").width(($(window).width() / numberOfActivePanels ) - 10);
+        });
 
-         $(".panel").height($(window).height() - $("#header").height() - 15);
+        $(".panel").height($(window).height() - $("#header").height() - 15);
 
-         $("textarea").on('change keyup paste', function() {
-          $("iframe").contents().find("html").html($("#htmlPanel").val());
-         })
+        updateOutput();
+
+        $("textarea").on('change keyup paste', function() {
+
+          updateOutput();
+        })
        </script>
   </body>
 </html>
