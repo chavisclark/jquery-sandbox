@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 #header {
@@ -9,7 +10,9 @@ body {
   background-color: #EEEEEE;
   padding: 5px;
   height: 30px;
+  position: fixed;
 }
+
 #logo {
   float: left;
   font-size: 1.2em;
@@ -41,6 +44,10 @@ body {
   border-right: 1px solid grey;
 }
 
+#bodyContainer {
+  width: 100%
+}
+
 .active {
   background-color: #E8F2FF;
 }
@@ -50,19 +57,42 @@ body {
 }
 
 .panel {
-  width: 50%;
-  height: 100%;
   float: left;
-  border-left: none;
 }
+
+.panelHeading {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 0.8em;
+  display: block;
+  padding: 5px;
+}
+
+.panelBody {
+  padding-left: 5px
+}
+
 .hidden {
   display: none;
 }
+
+span {
+  background-color: #E8F2FF;
+  margin-right: 2px; 
+}
+
 textarea {
   border-top: none;
+  border-left: none;
+  border-bottom: none;
   resize: none;
-  border-color: grey
+  border-color: grey;
 }
+
 iframe {
   border: none;
+}
+
+textarea, iframe {
+  height: 100%;
 }
